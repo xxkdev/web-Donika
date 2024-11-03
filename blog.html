@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spookify - Halloween Decor</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Inline styles for demo purposes */
+        .more-content {
+            display: none; /* Hide additional content by default */
+        }
+        .read-more.active + .more-content {
+            display: block; /* Show more content when 'Read More' is active */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -29,8 +38,8 @@
             <h2>Our <span>Blog</span></h2>
             <p>Discover our creative and eerie stories, tips, and insights. Explore more below!</p>
             <div class="buttons">
-                <a href="#shop" class="btn-primary">Shop the Scare</a>
-                <a href="#details" class="btn-secondary">More Details</a>
+                <a href="https://www.horror-shop.com/" target="_blank" class="btn-primary">Shop the Scare</a>
+                <a href="https://www.history.com/topics/halloween/history-of-halloween" target="_blank" class="btn-secondary">More Details</a>
             </div>
         </div>
         <div class="hero-image">
@@ -48,30 +57,98 @@
                 <img src="images/blog1.jpeg" alt="Spooky Decor Ideas" class="blog-image">
                 <div class="blog-content">
                     <h3>Spooky Decor Ideas for Halloween</h3>
-                    <p>Discover unique and creative ways to spook up your home this Halloween. From eerie lighting to ghostly decor, we’ve got you covered!</p>
-                    <a href="post1.html" class="read-more">Read More</a>
+                    <p>Discover unique and creative ways to spook up your home this Halloween...</p>
+                    <a  class="read-more" onclick="toggleContent(this)">Read More</a>
+                    <p class="more-content">From eerie lighting to ghostly decor, we’ve got you covered with all the best spooky ideas for your haunted setup!</p>
                 </div>
             </article>
+
             <!-- Blog Post 2 -->
             <article class="blog-post">
                 <img src="images/blog2.jpeg" alt="DIY Pumpkin Designs" class="blog-image">
                 <div class="blog-content">
                     <h3>DIY Pumpkin Carving & Designs</h3>
-                    <p>Get inspired with our pumpkin carving ideas. Perfect for adding a personalized spooky touch to your Halloween celebration.</p>
-                    <a href="post2.html" class="read-more">Read More</a>
+                    <p>Get inspired with our pumpkin carving ideas. Perfect for adding a spooky touch...</p>
+                    <a class="read-more" onclick="toggleContent(this)">Read More</a>
+                    <p class="more-content">From classic to intricate, our designs are sure to impress trick-or-treaters and guests alike.</p>
                 </div>
             </article>
+
             <!-- Blog Post 3 -->
             <article class="blog-post">
                 <img src="images/blog3.jpeg" alt="Halloween Costume Guide" class="blog-image">
                 <div class="blog-content">
                     <h3>Ultimate Halloween Costume Guide</h3>
-                    <p>Not sure what to wear? Dive into our guide for costume ideas that range from classic to creepy.</p>
-                    <a href="post3.html" class="read-more">Read More</a>
+                    <p>Not sure what to wear? Dive into our guide for costume ideas that range from classic...</p>
+                    <a class="read-more" onclick="toggleContent(this)">Read More</a>
+                    <p class="more-content">Our guide offers something for everyone, ensuring you have a spooky and stylish Halloween!</p>
+                </div>
+            </article>
+
+            <!-- Additional Blog Posts -->
+            <article class="blog-post">
+                <img src="images/blog4.jpeg" alt="Haunted House Party Tips" class="blog-image">
+                <div class="blog-content">
+                    <h3>Haunted House Party Tips</h3>
+                    <p>Throw the spookiest Halloween party with our top tips for creating an unforgettable...</p>
+                    <a class="read-more" onclick="toggleContent(this)">Read More</a>
+                    <p class="more-content">Set the mood with decorations, snacks, and ghostly games that will leave everyone spooked and amazed.</p>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <img src="images/blog5.jpeg" alt="Best Halloween Treats" class="blog-image">
+                <div class="blog-content">
+                    <h3>Best Halloween Treats</h3>
+                    <p>From candy to creative snacks, discover the best Halloween treats for your festivities...</p>
+                    <a class="read-more" onclick="toggleContent(this)">Read More</a>
+                    <p class="more-content">Try our recipes for ghostly cupcakes, spooky cookies, and more to satisfy every sweet tooth.</p>
+                </div>
+            </article>
+
+            <article class="blog-post">
+                <img src="images/blog6.jpeg" alt="Halloween DIY Crafts" class="blog-image">
+                <div class="blog-content">
+                    <h3>Halloween DIY Crafts</h3>
+                    <p>Get crafty with our easy-to-make Halloween decor ideas that will impress without breaking...</p>
+                    <a class="read-more" onclick="toggleContent(this)">Read More</a>
+                    <p class="more-content">Create spooky crafts like DIY wreaths, lanterns, and more for a fun, hands-on Halloween experience.</p>
                 </div>
             </article>
         </div>
     </section>
+
+
+    <!-- Featured Posts Carousel -->
+<section class="featured-posts">
+    <h2>Featured Posts</h2>
+    <div class="carousel">
+        <!-- Featured Post 1 -->
+        <div class="carousel-item">
+            <img src="images/featured1.jpeg" alt="Top Halloween Decor Trends">
+            <h3>Top Halloween Decor Trends</h3>
+            <p>Explore the latest trends in Halloween decor that will make your space truly spine-chilling!</p>
+            <a href="blog-detail.html" class="btn-secondary">Read More</a>
+        </div>
+        
+        <!-- Featured Post 2 -->
+        <div class="carousel-item">
+            <img src="images/featured2.jpeg" alt="DIY Haunted House">
+            <h3>DIY Haunted House</h3>
+            <p>Create a haunted house at home with these simple yet terrifying DIY ideas!</p>
+            <a href="blog-detail.html" class="btn-secondary">Read More</a>
+        </div>
+        
+        <!-- Featured Post 3 -->
+        <div class="carousel-item">
+            <img src="images/featured3.jpeg" alt="Ultimate Guide to Scary Movies">
+            <h3>Ultimate Guide to Scary Movies</h3>
+            <p>Our curated list of scary movies will have you jumping out of your seat this Halloween!</p>
+            <a href="blog-detail.html" class="btn-secondary">Read More</a>
+        </div>
+    </div>
+</section>
+
 
     <footer>
         <div class="footer-content">
@@ -89,5 +166,40 @@
             <p class="footer-text">© 2024 Spookify. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        function toggleContent(button) {
+            button.classList.toggle("active");
+            const moreContent = button.nextElementSibling;
+            if (moreContent.style.display === "block") {
+                moreContent.style.display = "none";
+                button.innerText = "Read More";
+            } else {
+                moreContent.style.display = "block";
+                button.innerText = "Read Less";
+            }
+        }
+
+
+
+            const carousel = document.querySelector('.carousel');
+            let scrollAmount = 0;
+        
+            function scrollCarousel() {
+                scrollAmount += 1;
+                if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+                    scrollAmount = 0; // Reset scroll to beginning
+                }
+                carousel.scrollTo({
+                    top: 0,
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        
+            setInterval(scrollCarousel, 40); // Adjust speed by changing interval
+
+        
+    </script>
 </body>
 </html>

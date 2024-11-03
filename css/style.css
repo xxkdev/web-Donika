@@ -1,10 +1,3 @@
-@import 'header.css';
-@import 'hero.css';
-@import 'about.css';
-@import 'stats.css';
-@import 'blog.css';
-@import 'contact.css';
-@import 'footer.css';
 
 * {
     margin: 0;
@@ -16,4 +9,866 @@ body {
     font-family: Arial, sans-serif;
     background-color: #1c1c1c;
     color: #fff;
+}
+
+header {
+    background-color: #1c1c1c;
+    padding: 20px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    color: #ff3e75;
+    font-size: 24px;
+    font-weight: bold;
+    flex: 1;
+    text-align: left;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    flex: 3;
+    justify-content: center;
+}
+
+.center-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.right-link {
+    list-style: none;
+    margin-left: auto;
+}
+
+.right-link li {
+    display: inline;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ff3e75;
+}
+
+/* Scroll-to-Top Button */
+.scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 20px;
+    z-index: 1000;
+    transition: background-color 0.3s;
+}
+
+.scroll-top:hover {
+    background-color: #555;
+}
+
+
+
+.stats-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: #1c1c1cb4;
+    margin: 50px auto;
+    max-width: 800px;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.stats-box h3 {
+    color: #ff3e75;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.stats-content {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background-color: #3e3e3e;
+    padding: 20px;
+    border-radius: 12px;
+    width: 120px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    border: 2px solid #ff3e75;
+}
+
+.stat-item h4 {
+    color: #ff3e75;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.stat-item p {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.content h2 {
+    font-size: 48px;
+    line-height: 1.2;
+}
+
+.content h2 span {
+    color: #ff3e75;
+}
+
+.content p {
+    font-size: 18px;
+    margin: 20px 0;
+    max-width: 400px;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-block;
+    padding: 12px 24px;
+    margin-right: 10px;
+    font-size: 16px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background-color: #ff3e75;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #e63667;
+}
+
+.btn-secondary {
+    background-color: #3e3e3e;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #333333;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+}
+
+.social-icons {
+    display: flex; /* Aligns the icons in a row */
+    justify-content: center; /* Centers the icons horizontally */
+    gap: 10px; /* Space between each icon */
+    margin: 20px 0; /* Margin above and below the icon section */
+}
+
+.social-icons img {
+    width: 24px; /* Set a fixed width for the icons */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s; /* Animation for hover effect */
+}
+
+.social-icons img:hover {
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+
+
+.about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: #1c1c1cb4;
+    flex-wrap: wrap;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    color: #fff;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.about-image img {
+    border-radius: 50%;
+    transition: transform 0.3s;
+    height: auto;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.about-image img:hover {
+    transform: scale(1.05);
+}
+
+.about-text {
+    max-width: 500px;
+    margin-left: 0;
+    text-align: center;
+}
+
+.about-text h2 {
+    font-size: 36px;
+    color: #ff3e75;
+    line-height: 1.2;
+}
+
+.about-text p {
+    font-size: 18px;
+    margin: 15px 0;
+    color: #cfcfcf;
+}
+
+
+.social-icons {
+    display: flex; /* Aligns the icons in a row */
+    justify-content: center; /* Centers the icons horizontally */
+    gap: 10px; /* Space between each icon */
+    margin: 20px 0; /* Margin above and below the icon section */
+}
+
+.social-icons img {
+    width: 24px; /* Set a fixed width for the icons */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s; /* Animation for hover effect */
+}
+
+.social-icons img:hover {
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+
+.blog-section {
+    padding: 50px 20px;
+    background-color: #1c1c1c;
+    color: #fff;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 36px;
+    color: #ff3e75;
+    margin-bottom: 30px;
+}
+
+.blog-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.blog-post {
+    background-color: #3e3e3e;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s;
+    width: 100%;
+    max-width: 320px;
+    text-align: left;
+}
+
+.blog-post:hover {
+    transform: translateY(-5px);
+}
+
+.blog-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.blog-content {
+    padding: 20px;
+}
+
+.blog-content h3 {
+    font-size: 24px;
+    color: #ff3e75;
+    margin-bottom: 10px;
+}
+
+.blog-content p {
+    font-size: 16px;
+    color: #cfcfcf;
+    margin-bottom: 15px;
+}
+
+.read-more {
+    text-decoration: none;
+    color: #ff3e75;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.read-more:hover {
+    color: #e63667;
+}
+
+
+.contact-section {
+    padding: 50px 20px;
+    background-color: #1c1c1c;
+    color: #fff;
+    text-align: left;
+}
+
+.section-title {
+    font-size: 36px;
+    color: #ff3e75;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    background: #ffffff;
+    margin-bottom: 20px;
+}
+
+.contact-form button {
+    background-color: #ff3e75;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #e63667;
+}
+
+
+footer {
+    background-color: #1c1c1c;
+    padding: 20px 0;
+    text-align: center;
+    color: #cfcfcf;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #ff3e75;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #e63667;
+}
+
+.footer-text {
+    margin-top: 10px;
+}
+
+.social-icons {
+    display: flex; /* Aligns the icons in a row */
+    justify-content: center; /* Centers the icons horizontally */
+    gap: 10px; /* Space between each icon */
+    margin: 20px 0; /* Margin above and below the icon section */
+}
+
+.social-icons img {
+    width: 24px; /* Set a fixed width for the icons */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s; /* Animation for hover effect */
+}
+
+.social-icons img:hover {
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+
+
+/* Testimonials Section */
+.testimonials {
+    padding: 40px 20px;
+    background-color: #2a2a2a;
+    text-align: center;
+    color: #ff3e75;
+    margin-top: 40px;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.testimonials h3 {
+    font-size: 28px;
+    color: #ff3e75;
+    margin-bottom: 20px;
+}
+
+.testimonial-content {
+    color: #cfcfcf;
+    margin-top: 20px;
+}
+
+.testimonial {
+    font-style: italic;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.customer-name {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Newsletter Section */
+.newsletter {
+    padding: 40px 20px;
+    background-color: #1c1c1c;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 40px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.newsletter h3 {
+    font-size: 28px;
+    color: #ff3e75;
+    margin-bottom: 15px;
+}
+
+.newsletter p {
+    font-size: 18px;
+    color: #cfcfcf;
+    margin-bottom: 25px;
+}
+
+.newsletter form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.newsletter input[type="email"] {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 2px solid #ff3e75;
+    outline: none;
+    width: 70%;
+    transition: border-color 0.3s;
+}
+
+.newsletter input[type="email"]:focus {
+    border-color: #e63667;
+}
+
+.newsletter .btn-primary {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #ff3e75;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.newsletter .btn-primary:hover {
+    background-color: #e63667;
+}
+
+
+/* Timeline Section */
+.timeline {
+    padding: 40px 20px;
+    background-color: #1c1c1c;
+    color: #ff3e75;
+    text-align: center;
+    margin-top: 40px;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 40px auto;
+}
+
+.timeline h2 {
+    font-size: 28px;
+    color: #ff3e75;
+    margin-bottom: 25px;
+}
+
+.timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.timeline-item {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-date {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e63667;
+    min-width: 100px;
+}
+
+.timeline-text h4 {
+    font-size: 20px;
+    color: #ff3e75;
+    margin-bottom: 8px;
+}
+
+.timeline-text p {
+    font-size: 16px;
+    color: #cfcfcf;
+}
+
+
+
+/* Meet the Team Section */
+.team {
+    padding: 40px 20px;
+    background-color: #1c1c1c;
+    color: #ff3e75;
+    text-align: center;
+    margin-top: 40px;
+    border-radius: 12px;
+}
+
+.team h2 {
+    font-size: 28px;
+    color: #ff3e75;
+    margin-bottom: 25px;
+}
+
+.team-content {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.team-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.team-member h4 {
+    font-size: 18px;
+    color: #ff3e75;
+    margin-bottom: 8px;
+}
+
+.team-member p {
+    font-size: 14px;
+    color: #cfcfcf;
+}
+
+
+/* Featured Posts Carousel */
+.featured-posts {
+    padding: 40px 20px;
+    background-color: #1a1a1a;
+    color: #ff3e75;
+    text-align: center;
+}
+
+.featured-posts h2 {
+    font-size: 28px;
+    color: #ff3e75;
+    margin-bottom: 20px;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    overflow: hidden;
+    flex-wrap: nowrap;
+}
+
+.carousel-item {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    flex: 0 0 auto;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.carousel-item h3 {
+    font-size: 18px;
+    color: #ff3e75;
+    margin-bottom: 8px;
+}
+
+.carousel-item p {
+    font-size: 14px;
+    color: #cfcfcf;
+    margin-bottom: 15px;
+}
+
+.carousel-item .btn-secondary {
+    text-decoration: none;
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #ff3e75;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.carousel-item .btn-secondary:hover {
+    background-color: #ff699a;
+}
+
+
+/* Blog Header Image */
+.blog-header {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px; /* Space below the header */
+}
+
+.blog-header-image {
+    width: 100%;
+    height: auto;
+    display: block; /* Ensures it doesn't have extra space */
+}
+
+.blog-header-content {
+    position: absolute;
+    bottom: 20px; /* Positioning from the bottom */
+    left: 20px; /* Positioning from the left */
+    color: white; /* Text color */
+    padding: 20px; /* Padding around the text */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.blog-header-content h1 {
+    margin: 0; /* Remove default margin */
+    font-size: 2.5em; /* Large font for the title */
+}
+
+.blog-header-content p {
+    margin: 10px 0 0; /* Space above the paragraph */
+    font-size: 1.2em; /* Slightly larger text for readability */
+}
+
+/* Blog Post Content */
+.blog-content {
+    padding: 20px; /* Padding around the blog content */
+    background: #1c1c1c; /* White background for contrast */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.blog-content h2 {
+    font-size: 2em; /* Main heading size */
+    margin-top: 0; /* Remove top margin */
+    color: #e63667;
+}
+
+.blog-content h3 {
+    font-size: 1.5em; /* Subheading size */
+    margin: 20px 0 10px; /* Margin around subheadings */
+}
+
+.blog-content p {
+    margin: 10px 0; /* Spacing between paragraphs */
+    line-height: 1.6; /* Increased line height for readability */
+}
+
+/* Related Articles Section */
+.related-articles {
+    background: #1c1c1c; /* Light gray background */
+    padding: 20px; /* Padding inside the section */
+    margin-top: 20px; /* Space above the section */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.related-articles h2  {
+    margin: 0 0 50px; /* Space below the heading */
+    font-size: 1.8em; /* Heading size */
+    color: #ff3e75;
+    align-items: center;
+    text-align: center;
+}
+
+.related-container {
+    display: flex; /* Flexbox layout for articles */
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 15px; /* Space between articles */
+}
+
+.related-post {
+    flex: 1 1 30%; /* Flex-grow, flex-shrink, and flex-basis for responsive sizing */
+    background: #1c1c1c; /* White background for posts */
+    padding: 10px; /* Padding inside each post */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.related-post img {
+    width: 90%; /* Make image responsive */
+    border-radius: 5px; /* Rounded corners for images */
+}
+
+.related-post h3 a {
+    font-size: 1.2em; /* Title size for related posts */
+    margin: 10px 0; /* Space around titles */
+    color: #ff3e75;
+}
+
+
+/* Faq section */
+.faq-section {
+    margin: 40px auto; /* Centering with auto margin */
+    padding: 20px;
+    background-color: #1c1c1c;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-width: 70%; /* Max width for responsiveness */
+    text-align: center; /* Center text */
+}
+
+.faq-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.faq-item {
+    margin-bottom: 10px;
+}
+
+.faq-question {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.faq-answer {
+    display: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+    background-color: #333333;
+    color: #ff699a;
 }
