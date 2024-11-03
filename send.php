@@ -24,6 +24,16 @@ $pass = '';
 try {
     $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // Create contacts table if it doesn't exist
+    $conn->exec("CREATE TABLE IF NOT EXISTS contacts (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        email VARCHAR(100) NOT NULL,
+        subject VARCHAR(200) NOT NULL,
+        message TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )");
 } catch(PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
@@ -32,11 +42,93 @@ $mail = new PHPMailer(true);
 $alert = ''; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Determine if this is a login or signup request
+    // Determine if this is a login, signup, or contact form request
     $isSignup = isset($_POST['firstname']) && isset($_POST['lastname']);
+    $isContact = isset($_POST['message']) && isset($_POST['subject']);
     
-    if ($isSignup) {
-        // Signup Process
+    if ($isContact) {
+        // Contact Form Process
+        $name = trim($_POST['name']);
+        $email = trim($_POST['email']);
+        $subject = trim($_POST['subject']);
+        $message = trim($_POST['message']);
+        
+        // Validate contact form input
+        if (empty($name) || empty($email) || empty($subject) || empty($message)) {
+            $_SESSION['contact_error'] = "All fields are required.";
+            header("Location: contact.php#contact-form");
+            exit();
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['contact_error'] = "Invalid email format.";
+            header("Location: contact.php#contact-form");
+            exit();
+        }
+        
+        try {
+            // Store in database
+            $stmt = $conn->prepare("INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)");
+            if ($stmt->execute([$name, $email, $subject, $message])) {
+                // Send email notifications
+                try {
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'leotrimthaqi605@gmail.com';
+                    $mail->Password = 'pbcnawmjobxnhuqr';
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port = 587;
+
+                    // Send to admin
+                    $mail->setFrom('leotrimthaqi605@gmail.com', 'Spookify Contact Form');
+                    $mail->addAddress('leotrimthaqi605@gmail.com');
+                    $mail->addReplyTo($email, $name);
+                    
+                    $mail->isHTML(true);
+                    $mail->Subject = 'New Contact Form Submission: ' . $subject;
+                    $mail->Body = "
+                        <h2>New Contact Form Submission</h2>
+                        <p><strong>Name:</strong> {$name}</p>
+                        <p><strong>Email:</strong> {$email}</p>
+                        <p><strong>Subject:</strong> {$subject}</p>
+                        <p><strong>Message:</strong></p>
+                        <p>{$message}</p>
+                    ";
+
+                    $mail->send();
+                    
+                    // Send confirmation to user
+                    $mail->clearAddresses();
+                    $mail->addAddress($email);
+                    $mail->Subject = 'Thank you for contacting Spookify';
+                    $mail->Body = "
+                        <h2>Thank you for contacting Spookify!</h2>
+                        <p>Dear {$name},</p>
+                        <p>We have received your message and will get back to you as soon as possible.</p>
+                        <p>Your message details:</p>
+                        <p><strong>Subject:</strong> {$subject}</p>
+                        <p><strong>Message:</strong></p>
+                        <p>{$message}</p>
+                        <p>Best regards,<br>The Spookify Team</p>
+                    ";
+                    
+                    $mail->send();
+                    $_SESSION['contact_success'] = "Message sent successfully! We'll get back to you soon.";
+                    
+                } catch (Exception $e) {
+                    $_SESSION['contact_error'] = "Failed to send email. Please try again later.";
+                    error_log("Failed to send contact email: " . $e->getMessage());
+                }
+                
+                header("Location: contact.php");
+                exit();
+            }
+        } catch (PDOException $e) {
+            $_SESSION['contact_error'] = "Failed to submit message. Please try again.";
+            header("Location: contact.php");
+            exit();
+        }
+    } elseif ($isSignup) {
+        // Existing Signup Process
         $firstname = trim($_POST['firstname']);
         $lastname = trim($_POST['lastname']);
         $email = trim($_POST['email']);
@@ -111,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     } else {
-        // Login Process
+        // Existing Login Process
         $email = trim($_POST['email']);
         $password = $_POST['password'];
 
