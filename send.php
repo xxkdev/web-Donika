@@ -6,16 +6,20 @@ require_once 'phpmailer/src/Exception.php';
 require_once 'phpmailer/src/PHPMailer.php'; 
 require_once 'phpmailer/src/SMTP.php'; 
 
-// Enable error reporting
+// Start session only if it hasn't been started yet
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+// Enable error reporting for development
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Database connection
 $host = 'localhost';
-$db = 'user_signups'; // Change to your database name
-$user = 'root'; // Change to your DB username
-$pass = ''; // Change to your DB password
+$db = 'user_signups';
+$user = 'root';
+$pass = '';
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
@@ -27,82 +31,108 @@ try {
 $mail = new PHPMailer(true); 
 $alert = ''; 
 
-// Check if the form has been submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
-    $action = $_POST['action'];
-
-    if ($action == 'signup') {
-        // Signup logic
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
-        $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password for security
-
-        // Check if email already exists
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Determine if this is a login or signup request
+    $isSignup = isset($_POST['firstname']) && isset($_POST['lastname']);
+    
+    if ($isSignup) {
+        // Signup Process
+        $firstname = trim($_POST['firstname']);
+        $lastname = trim($_POST['lastname']);
+        $email = trim($_POST['email']);
+        $password = $_POST['password'];
+        $password2 = $_POST['password2'];
         
-        if ($stmt->rowCount() > 0) {
-            $alert = "<div class='alert-error'><span>An account with this email already exists.</span></div>";
+        // Validate input
+        if (empty($firstname) || empty($lastname) || empty($email) || empty($password)) {
+            $_SESSION['error'] = "All fields are required.";
+            header("Location: signup.php");
+            exit();
+        } elseif ($password !== $password2) {
+            $_SESSION['error'] = "Passwords do not match.";
+            header("Location: signup.php");
+            exit();
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['error'] = "Invalid email format.";
+            header("Location: signup.php");
+            exit();
         } else {
-            // Insert data into database
-            try {
-                $stmt = $conn->prepare("INSERT INTO users (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)");
-                $stmt->bindParam(':firstname', $firstname);
-                $stmt->bindParam(':lastname', $lastname);
-                $stmt->bindParam(':email', $email);
-                $stmt->bindParam(':password', $password);
-                
-                if ($stmt->execute()) {
-                    // Send confirmation email
-                    $mail->isSMTP(); 
-                    $mail->Host = 'smtp.gmail.com'; 
-                    $mail->SMTPAuth = true; 
-                    $mail->Username = 'leotrimthaqi605@gmail.com'; // Your email
-                    $mail->Password = 'kvoftbhafsalszfh'; // Your email password
-                    $mail->SMTPSecure = 'tls'; 
-                    $mail->Port = '587'; 
+            // Check if email exists
+            $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+            
+            if ($stmt->rowCount() > 0) {
+                $_SESSION['error'] = "An account with this email already exists.";
+                header("Location: signup.php");
+                exit();
+            } else {
+                // Insert new user
+                try {
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $stmt = $conn->prepare("INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)");
+                    
+                    if ($stmt->execute([$firstname, $lastname, $email, $hashedPassword])) {
+                        // Send welcome email
+                        try {
+                            $mail->isSMTP();
+                            $mail->Host = 'smtp.gmail.com';
+                            $mail->SMTPAuth = true;
+                            $mail->Username = 'leotrimthaqi605@gmail.com';
+                            $mail->Password = 'pbcnawmjobxnhuqr';
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                            $mail->Port = 587;
 
-                    $mail->setFrom('leotrimthaqi605@gmail.com'); 
-                    $mail->addAddress($email); // Send to user's email
+                            $mail->setFrom('leotrimthaqi605@gmail.com', 'Spookify');
+                            $mail->addAddress($email);
+                            
+                            $mail->isHTML(true);
+                            $mail->Subject = "Welcome to Spookify, $firstname!";
+                            $mail->Body = "
+                                <h2>Welcome to Spookify!</h2>
+                                <p>Hi $firstname,</p>
+                                <p>Thank you for creating an account with us. We're excited to have you on board!</p>
+                                <p>Best regards,<br>The Spookify Team</p>";
 
-                    $mail->isHTML(true); 
-                    $mail->Subject = 'Welcome to Spookify, ' . $firstname; 
-                    $mail->Body = "Hello $firstname, <br>Thank you for signing up! We’re thrilled to have you."; 
+                            $mail->send();
+                        } catch (Exception $e) {
+                            // Continue even if email fails
+                            error_log("Failed to send welcome email: " . $e->getMessage());
+                        }
 
-                    $mail->send(); 
-
-                    // Redirect to login page with success message
-                    header("Location: login.php?signup_success=1");
+                        $_SESSION['success'] = "Account created successfully!";
+                        header("Location: login.php?signup_success=1");
+                        exit();
+                    }
+                } catch (PDOException $e) {
+                    $_SESSION['error'] = "Registration failed. Please try again.";
+                    header("Location: signup.php");
                     exit();
-                } else {
-                    $alert = "<div class='alert-error'><span>Failed to insert data into the database.</span></div>";
                 }
-            } catch (Exception $e) {
-                $alert = "<div class='alert-error'><span>Failed to sign up: " . $e->getMessage() . "</span></div>"; 
-            } 
+            }
         }
-    } elseif ($action == 'login') {
-        // Login logic
-        $email = $_POST['email'];
+    } else {
+        // Login Process
+        $email = trim($_POST['email']);
         $password = $_POST['password'];
 
-        // Check if user exists
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($user && password_verify($password, $user['password'])) {
-            // Password is correct
-            $alert = "<div class='alert-success'><span>Login Successful! Welcome back, " . $user['firstname'] . ".</span></div>";
+        if (empty($email) || empty($password)) {
+            $_SESSION['error'] = "Please enter both email and password.";
+            header("Location: login.php");
+            exit();
         } else {
-            // User does not exist or password is incorrect
-            if (!$user) {
-                $alert = "<div class='alert-error'><span>No account found with this email. Please sign up first.</span></div>";
+            $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['firstname'] = $user['firstname'];
+                header("Location: dashboard.html");
+                exit();
             } else {
-                $alert = "<div class='alert-error'><span>Incorrect password. Please try again.</span></div>";
+                $_SESSION['error'] = "Invalid email or password.";
+                header("Location: login.php");
+                exit();
             }
         }
     }

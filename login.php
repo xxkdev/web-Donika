@@ -9,6 +9,26 @@
     <title>Log In</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
+    <style>
+        /* Success Message Style */
+.alert-success {
+    background-color: #d4edda; /* Light green background */
+    border: 1px solid #c3e6cb; /* Slightly darker green border */
+    color: #155724; /* Dark green text */
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    width: 80%; /* Adjust width as needed */
+    margin: 10px auto; /* Center the alert */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    text-align: center;
+}
+.alert-success span {
+    font-weight: bold;
+}
+
+    </style>
 
 <body>
     <div class="login-box">
@@ -45,7 +65,7 @@
         <div class="alert"><?= $alert ?></div>
     <?php endif; ?>
 
-    <p class="para-2">Don't have an account? <a href="signup.html">Sign Up</a></p>
+    <p class="para-2">Don't have an account? <a href="signup.php">Sign Up</a></p>
     <p class="para-2">Back to <a href="index.html">Homepage</a> for more information </p>
     
 </body>
